@@ -41,9 +41,9 @@ class Tree {
   }
 
   /**
-   *  insert data to the tree
+   *  insert data (should integer) to the tree
    * @access public
-   * @param {*} data
+   * @param {number} data
    */
   insert(data) {
     this.root = this.#insertRec(this.root, data);
@@ -72,7 +72,7 @@ class Tree {
   }
 
   /**
-   * delete the node that match the given value
+   * delete the node that match the given value (integer)
    * @access public
    * @param {*} data
    */
@@ -122,7 +122,7 @@ class Tree {
   }
 
   /**
-   * find the minimum data value on the node
+   * find the minimum data value of the node and all subnodes
    * @param {Node|object} root Node object
    * @returns node object
    */
@@ -135,7 +135,7 @@ class Tree {
   }
 
   /**
-   * returns the node with the given value.
+   * returns the node that matched the given value.
    * @param {*} data value to be searched
    * @returns {Node} root object
    */
@@ -164,8 +164,8 @@ class Tree {
   }
 
   /**
-   * traverse the tree in breadth-first level order and provide each node as
-   * the argument to the provided function
+   * traverse the tree in breadth-first level order and use each node as
+   * the argument to the provided function if given
    * @access public
    * @param {function} func function that will invoke in each node
    * @returns {array} returns array of returned value of function given. or array of node value if the function not provided.
@@ -187,7 +187,7 @@ class Tree {
   }
 
   /**
-   * traverse the tree in breadth-first level order using in-order traversal and provide each node as the argument to the provided function
+   * traverse the tree in breadth-first level order using in-order traversal and provide each node as the argument to the provided function if given
    * @access public
    * @param {function} func - function
    * @returns {array} array
@@ -322,6 +322,11 @@ class Tree {
     return level;
   }
 
+  /**
+   * check is the tree balance or not.
+   * @access public
+   * @returns {boolean} true if balanced and false if isn't
+   */
   isBalanced() {
     const root = this.root;
     const leftHeight = this.height(root.left);
@@ -329,10 +334,19 @@ class Tree {
     const difference = Math.abs(leftHeight - rightHeight);
     return !(difference > 1);
   }
+  /**
+   * rebalance the tree
+   * @access public
+   */
   rebalance() {
     const arr = this.inorder();
     this.buildTree(arr);
   }
+
+  /**
+   * print the prettied tree to the console
+   * @access public
+   */
   prettyPrint(node = this.root, prefix = '', isLeft = true) {
     if (node.right !== null) {
       this.prettyPrint(
